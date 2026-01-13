@@ -39,4 +39,16 @@ public class ServiceTests {
         List<User> users=userService.listAllByName("Helen0");
         users.forEach(System.out::println);
     }
+
+    @Test
+    public void testSaveAuto(){
+        ArrayList<User> users=new ArrayList<User>();
+        for(int i=0;i<5;i++){
+            User user=new User();
+            user.setName("Helen"+i);
+            users.add(user);
+        }
+
+        userService.saveBatch(users);
+    }
 }

@@ -8,3 +8,6 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #查看MySQL的日志信息
   # mapper-locations: classpath:xml/*.xml  # 如果是其他目录，需要配置mapper-locations
+#  global-config:
+#    db-config:
+#      id-type: assign_id  # 配置所有的主键ID都为雪花算法 全局配置

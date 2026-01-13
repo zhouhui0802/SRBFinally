@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 * @date 2026/1/12 15:42
 */
 @SpringBootApplication
-@MapperScan("com.zh.mybatisplus.mapper")
+// @MapperScan("com.zh.mybatisplus.mapper")  //将次数注解移动到mybatisplus的配置类中
 public class MybatisPlusFinallyApplication {
 
     public static void main(String[] args) {
