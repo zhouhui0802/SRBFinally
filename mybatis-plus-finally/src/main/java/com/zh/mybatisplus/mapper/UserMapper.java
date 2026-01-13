@@ -4,6 +4,8 @@ package com.zh.mybatisplus.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zh.mybatisplus.entity.User;
 
+import java.util.List;
+
 /**
  * @author zhouhui
  * @version 1.0
@@ -12,4 +14,6 @@ import com.zh.mybatisplus.entity.User;
  */
 
 public interface UserMapper extends BaseMapper<User> {
+
+    List<User> selectAllByName(String name);
 }
