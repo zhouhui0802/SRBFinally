@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <script src="axios.js"></script>
+    <script>
+/*        axios({
+            method: 'get',
+            url: 'http://localhost:8080/user/list',
+        })
+            .then((response)=>{
+                console.log('获取数据成功',response)
+            })
+            .catch((error)=>{
+                console.log('获取数据失败', error)
+            })*/
+
+// 对axios配置的写法
+    //使用自定义配置
+    const request = axios.create({
+        baseURL: 'http://localhost:8080', //url前缀
+        timeout: 1000, //超时时间
+        headers: { token: 'helen123',}  //携带令牌
+    })
+
+//
+    request.interceptors.request.use(
+        function(config){
+            config.headers.token='zh1234'  //最终是这个token起效果
+            return config
+        },
+        function(error){
+            return Promise.reject(error)
+        }
+    )
+
+//
+    request.interceptors.response.use(
+        function(response){
+            return response.data
+        },
+        function(error){
+            return Promise.reject(error)
+        }
+    )
+    request({
+        method: 'get',
+        url: '/user/list'
+    }).then(response=>{
+        console.log('获取数据成功',response)
+    }).catch(error=>{
+        console.log('获取数据失败',error)
+    })
+    </script>
+</body>
