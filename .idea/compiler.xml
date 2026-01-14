@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="service-core" />
         <module name="service-base" />
+        <module name="zh-easyexcel" />
         <module name="mybatis-plus" />
         <module name="srb-common" />
       </profile>

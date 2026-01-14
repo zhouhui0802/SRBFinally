@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/mybatis-plus-finally/pom.xml" />
         <option value="$PROJECT_DIR$/srb/pom.xml" />
+        <option value="$PROJECT_DIR$/zh-easyexcel/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
