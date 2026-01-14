@@ -7,15 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mybatis-plus" />
         <module name="service-core" />
+        <module name="service-base" />
+        <module name="mybatis-plus" />
         <module name="srb-common" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="service-base" options="" />
+      <module name="service-base" options="-parameters" />
       <module name="service-core" options="-parameters" />
       <module name="srb" options="" />
       <module name="srb-common" options="-parameters" />
