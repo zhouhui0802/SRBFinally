@@ -55,6 +55,36 @@ export const constantRoutes = [
     }]
   },
 
+
+  {
+    path: '/core/integral-grade',
+    component: Layout,
+    redirect: '/core/integral-grade/list',
+    name: 'coreIntegralGrade',
+    meta: {title: '积分等级管理',icon: 'el-icon-s-marketing'},
+    alwaysShow: true,
+    children: [
+      {
+        path: 'list',
+        name: 'coreIntegralGradeList',
+        component: ()=>import('@/views/core/integral-grade/list.vue'),
+        meta: {title: '积分等级列表'}
+      },
+      {
+        path: 'create',
+        name: 'coreIntegralGradeCreate',
+        component: ()=>import('@/views/core/integral-grade/form.vue'),
+        meta: {title: '新增积分等级'}
+      },
+      {
+        path: 'edit/:id',
+        name: 'coreIntegralGradeEdit',
+        component: ()=>import('@/views/core/integral-grade/form.vue'),
+        meta: {title: '修改积分等级'}
+      }
+    ]
+  },
+
   {
     path: '/example',
     component: Layout,
@@ -72,7 +102,8 @@ export const constantRoutes = [
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: 'Tree', icon: 'tree' },
+        hidden: true
       }
     ]
   },
