@@ -9,7 +9,10 @@ import com.zh.srb.core.pojo.entity.ExcelDictDTO;
 import com.zh.srb.core.service.DictService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.ExceptionUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -29,6 +33,9 @@ import java.util.List;
 @Slf4j
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -54,12 +61,34 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     public List<Dict> listByParentId(Long parentId) {
-        List<Dict> dictList = baseMapper.selectList(new QueryWrapper<Dict>().eq("parent_id", parentId));
+
+        //先查询redis中是否存在数据列表
+        List<Dict> dictList=null;
+
+        try{
+            dictList=(List<Dict>)redisTemplate.opsForValue().get("srb:core:dictList:"+parentId);
+            if(dictList!=null){
+                log.info("从redis中取值");
+                return dictList;
+            }
+        }catch (Exception e){
+            log.error("redis服务器异常");
+        }
+
+        log.info("从数据库中取值");
+        dictList= baseMapper.selectList(new QueryWrapper<Dict>().eq("parent_id", parentId));
         dictList.forEach(dict -> {
             boolean hasChildren=this.hasChildren(dict.getId());
             dict.setHasChildren(hasChildren);
         });
 
+        //将数据存入redis
+        try{
+            redisTemplate.opsForValue().set("srb:core:dictList:"+parentId,dictList,5 , TimeUnit.MINUTES);
+            log.info("数据存入redis");
+        }catch (Exception e){
+            log.error("redis服务器异常");
+        }
         return dictList;
     }
 
