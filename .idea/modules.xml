@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SRBFinally.iml" filepath="$PROJECT_DIR$/SRBFinally.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-base.iml" filepath="$PROJECT_DIR$/service-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-core.iml" filepath="$PROJECT_DIR$/service-core.iml" />
     </modules>
   </component>
 </project>
