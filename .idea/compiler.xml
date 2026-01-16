@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="service-base" />
+        <module name="zh-Jwt" />
         <module name="srb-common" />
         <module name="service-core" />
         <module name="service-oss" />
