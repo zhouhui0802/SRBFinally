@@ -1,0 +1,29 @@
+server:
+  port: 8120
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: service-sms
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 3000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+aliyun:
+  sms:
+    region-id: cn-beijing
+    key-id: your key
+    key-secret: your key password
+    template-code: SMS_96695065
+    sign-name: 谷粒
+
+# 阿里云的配置，首先登录阿里云账号，然后选择控制台
+# 找到访问控制RAM  注册一个账号，找到对应的key-id跟key-secret
