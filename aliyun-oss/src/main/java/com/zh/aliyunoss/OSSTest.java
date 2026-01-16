@@ -12,7 +12,7 @@ public class OSSTest {
     String endpoint ="oss-cn-beijing.aliyuncs.com";
 
     String accessKeyId = "your key id";
-    String accessKeySecret = "your key password";
+    String accessKeySecret = "your key secret";
     String bucketName = "zhouhui-srb";
 
     @Test
