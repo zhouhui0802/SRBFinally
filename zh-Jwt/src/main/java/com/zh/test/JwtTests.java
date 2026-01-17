@@ -42,7 +42,7 @@ public class JwtTests {
     @Test
     public void testGetUserInfo(){
 
-        String token = "jwt字符串";
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJndWxpLXVzZXIiLCJpc3MiOiJhdGd1aWd1IiwiYXVkIjoiYXRndWlndSIsImlhdCI6MTc2ODYzNTQ1MCwiZXhwIjoxNzY4NzIxODUwLCJuYmYiOjE3Njg2MzU0NzAsImp0aSI6IjkwOTE4Y2IwLWU0Y2UtNDEyOS04NTVlLWI2YTJiZWZhOTk4MiIsIm5pY2tuYW1lIjoiSGVsZW4iLCJhdmF0YXIiOiIxLmpwZyJ9.vOwkQO5jb1RNrWmK6SeGCagk4jwqwKg0N9YvgFAwDzM";
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
 
         Claims claims = claimsJws.getBody();
