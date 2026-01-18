@@ -39,7 +39,7 @@ module.exports = {
 
   axios: {
     // Axios options here
-    baseURL: 'http://localhost',
+    baseURL: 'http://localhost:8080',
   },
 
   plugins: [

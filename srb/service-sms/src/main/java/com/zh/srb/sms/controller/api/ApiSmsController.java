@@ -5,6 +5,7 @@ import com.zh.srb.common.result.R;
 import com.zh.srb.common.result.ResponseEnum;
 import com.zh.srb.common.util.RandomUtils;
 import com.zh.srb.common.util.RegexValidateUtils;
+import com.zh.srb.sms.client.CoreUserInfoClient;
 import com.zh.srb.sms.service.SmsService;
 import com.zh.srb.sms.util.SmsProperties;
 import io.swagger.annotations.Api;
@@ -27,6 +28,9 @@ import java.util.concurrent.TimeUnit;
 public class ApiSmsController {
 
     @Autowired
+    private CoreUserInfoClient coreUserInfoClient;
+
+    @Autowired
     private SmsService smsService;
 
     @Autowired
@@ -43,6 +47,11 @@ public class ApiSmsController {
 
         //MOBILE_ERROR(-203, "手机号不正确"),
         Assert.isTrue(RegexValidateUtils.checkCellphone(mobile),ResponseEnum.MOBILE_ERROR);
+
+        //手机号是否注册
+        boolean result = coreUserInfoClient.checkMobile(mobile);
+        System.out.println("result:" + result);
+        Assert.isTrue(result==false,ResponseEnum.MOBILE_EXIST_ERROR);
 
         //生成验证码
         String code = RandomUtils.getFourBitRandom();
