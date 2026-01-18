@@ -31,6 +31,7 @@ public class UserLoginRecord implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "用户id")
+    @TableField("user_id")
     private Long userId;
 
     @ApiModelProperty(value = "ip")

@@ -1,6 +1,8 @@
 package com.zh.srb.core.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zh.srb.base.util.JwtUtils;
 import com.zh.srb.common.exception.Assert;
 import com.zh.srb.common.result.ResponseEnum;
@@ -10,12 +12,14 @@ import com.zh.srb.core.mapper.UserLoginRecordMapper;
 import com.zh.srb.core.pojo.entity.UserAccount;
 import com.zh.srb.core.pojo.entity.UserInfo;
 import com.zh.srb.core.mapper.UserInfoMapper;
+import com.zh.srb.core.pojo.query.UserInfoQuery;
 import com.zh.srb.core.pojo.vo.LoginVO;
 import com.zh.srb.core.pojo.vo.RegisterVO;
 import com.zh.srb.core.pojo.vo.UserInfoVO;
 import com.zh.srb.core.service.UserAccountService;
 import com.zh.srb.core.service.UserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,5 +119,34 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userInfoVO.setUserType(userType);
 
         return userInfoVO;
+    }
+
+    @Override
+    public IPage<UserInfo> listPage(Page<UserInfo> pageParam, UserInfoQuery userInfoQuery) {
+
+        String mobile = userInfoQuery.getMobile();
+        Integer status = userInfoQuery.getStatus();
+        Integer userType= userInfoQuery.getUserType();
+
+        QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
+
+        if(userInfoQuery==null){
+            return baseMapper.selectPage(pageParam,null);
+        }
+
+        userInfoQueryWrapper
+                .eq(StringUtils.isNotBlank(mobile),"mobile",mobile)
+                .eq(status!=null,"status",status)
+                .eq(userType!=null,"user_type",userType);
+        return baseMapper.selectPage(pageParam,userInfoQueryWrapper);
+    }
+
+    @Override
+    public void lock(Long id, Integer status) {
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(id);
+        userInfo.setStatus(status);
+        baseMapper.updateById(userInfo);
     }
 }
